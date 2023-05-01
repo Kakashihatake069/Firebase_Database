@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateAccount"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_48sdp"
+        android:background="#0B2447"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/btnCback"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_weight="1"
+            android:src="@drawable/leftwhite" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="Create Account"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edtusername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your Username"
+        android:padding="15dp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        />
+
+    <EditText
+        android:id="@+id/edtemail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your Email ID"
+        android:padding="15dp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <EditText
+        android:id="@+id/edtphone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your Phone No."
+        android:inputType="phone"
+        android:padding="15dp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <EditText
+        android:id="@+id/edtpassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter you Password"
+        android:inputType="number|phone"
+        android:padding="15dp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btncreateacc"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="#3E5EB1"
+        android:padding="@dimen/_10sdp"
+        android:text="Create Account" />
+
+
+</LinearLayout>

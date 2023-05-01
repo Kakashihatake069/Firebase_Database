@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_48sdp"
+        android:background="#0B2447"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        tools:ignore="MissingConstraints">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="Firebase Account"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:src="@drawable/user"
+        android:layout_marginTop="@dimen/_30sdp"/>
+
+    <EditText
+        android:id="@+id/edtusername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your Username"
+        android:padding="15dp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        />
+
+    <EditText
+        android:id="@+id/edtpassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your password"
+        android:inputType="numberPassword"
+        android:padding="15dp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnlogin"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="#3E5EB1"
+        android:padding="@dimen/_10sdp"
+        android:text="LOGIN" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="or"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/_10sdp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnnewaccount"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:background="#3E5EB1"
+        android:padding="@dimen/_10sdp"
+        android:text="Create An Account" />
+
+
+
+</LinearLayout>
+
+
+
