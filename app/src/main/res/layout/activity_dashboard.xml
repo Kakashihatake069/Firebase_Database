@@ -136,8 +136,19 @@
                 android:layout_height="@dimen/_35sdp"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:background="#3E5EB1"
-                android:hint="SUBMIT" />
+                android:background="#081450"
+                android:text="SUBMIT"
+                android:textColor="@color/white"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btndisplay"
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="#081450"
+                android:text="DISPLAY"
+                android:textColor="@color/white"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
