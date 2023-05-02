@@ -7,74 +7,76 @@
     android:orientation="vertical"
     tools:context=".DashboardActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="@dimen/_48sdp"
+        android:background="#0B2447"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/imgbackbtn"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_weight="1"
+            android:src="@drawable/leftwhite" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="Dashboard"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold" />
+        <ImageView
+            android:id="@+id/btnlogout"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_weight="1"
+            android:src="@drawable/shutdown" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="Welcome - "
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/black" />
+
+        <TextView
+
+            android:id="@+id/txtuser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:padding="@dimen/_10sdp"
+            android:textColor="@color/black" />
+    </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:elevation="@dimen/_70sdp"
+        app:cardCornerRadius="@dimen/_10sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_48sdp"
-                android:background="#0B2447"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:weightSum="5"
-                tools:ignore="MissingConstraints">
-
-                <ImageView
-                    android:id="@+id/imgbackbtn"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_weight="1"
-                    android:src="@drawable/leftwhite" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center"
-                    android:text="Dashboard"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_20sdp"
-                    android:textStyle="bold" />
-                <ImageView
-                    android:id="@+id/btnlogout"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_weight="1"
-                    android:src="@drawable/shutdown" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:text="Welcome - "
-                android:padding="@dimen/_10sdp"
-                android:textColor="@color/black" />
-
-                <TextView
-
-                    android:id="@+id/txtuser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:padding="@dimen/_10sdp"
-                    android:textColor="@color/black" />
-            </LinearLayout>
+            android:orientation="vertical"
+            android:layout_margin="@dimen/_10sdp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -86,10 +88,6 @@
                 android:textColor="#081450"
                 android:textSize="@dimen/_20ssp"
                 android:textStyle="bold" />
-
-
-
-
 
             <EditText
                 android:layout_width="match_parent"
@@ -130,25 +128,39 @@
                 android:padding="@dimen/_10sdp"
                 android:hint="Enter your GRID"
                 android:id="@+id/edtRid"/>
-            <androidx.appcompat.widget.AppCompatButton
-               android:id="@+id/btnsubmit"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:background="#081450"
-                android:text="SUBMIT"
-                android:textColor="@color/white"/>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btndisplay"
-                android:layout_width="@dimen/_60sdp"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:background="#081450"
-                android:text="DISPLAY"
-                android:textColor="@color/white"/>
+
         </LinearLayout>
-    </ScrollView>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnsubmit"
+            android:layout_margin="@dimen/_30sdp"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_gravity="center"
+            android:background="#081450"
+            android:text="SUBMIT"
+            android:textColor="@color/white"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btndisplay"
+            android:layout_margin="@dimen/_30sdp"
+            android:layout_weight="1"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_gravity="center"
+            android:background="#081450"
+            android:text="DISPLAY"
+            android:textColor="@color/white"
+            />
+
+    </LinearLayout>
 </LinearLayout>
