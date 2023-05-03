@@ -4,15 +4,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
 
-class DisplayAdapter(var studentList : ArrayList<StudentModelClass>): RecyclerView.Adapter<DisplayAdapter.MyViewHolder>() {
+class DisplayAdapter(var onEdit : (StudentModelClass) -> Unit,var onDelete : (String) -> Unit): RecyclerView.Adapter<DisplayAdapter.MyViewHolder>() {
+     var studentList = ArrayList<StudentModelClass>()
     class MyViewHolder(itemview : View) : RecyclerView.ViewHolder(itemview) {
         var txtname : TextView = itemview.findViewById(R.id.txtname)
         var txtcourse : TextView = itemview.findViewById(R.id.txtcourse)
         var txtaddress : TextView = itemview.findViewById(R.id.txtaddress)
         var txtfees : TextView = itemview.findViewById(R.id.txtfees)
         var txtid : TextView = itemview.findViewById(R.id.txtid)
+        var btnedit : AppCompatButton = itemview.findViewById(R.id.btnedit)
+        var btndelete : AppCompatButton = itemview.findViewById(R.id.btndelete)
     }
 
 
@@ -32,5 +36,16 @@ class DisplayAdapter(var studentList : ArrayList<StudentModelClass>): RecyclerVi
             holder.txtaddress.setText(studentList[position].address)
             holder.txtfees.setText(studentList[position].fees)
             holder.txtid.setText(studentList[position].id)
+
+        holder.btnedit.setOnClickListener {
+            onEdit.invoke(studentList[position])
+        }
+        holder.btndelete.setOnClickListener {
+            onDelete.invoke(studentList[position].id)
+        }
+    }
+    fun updatelist(list : java.util.ArrayList<StudentModelClass>){
+        studentList = list
+        notifyDataSetChanged()
     }
 }

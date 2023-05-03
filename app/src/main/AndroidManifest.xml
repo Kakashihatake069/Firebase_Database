@@ -12,6 +12,9 @@
         android:theme="@style/Theme.FirebaseProject"
         tools:targetApi="31">
         <activity
+            android:name=".EditRegistrationActivity"
+            android:exported="false" />
+        <activity
             android:name=".DisplayRecordActivity"
             android:exported="false" />
         <activity
