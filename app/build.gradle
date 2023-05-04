@@ -68,5 +68,11 @@ dependencies {
     // firebase real time database
     implementation 'com.google.firebase:firebase-database-ktx'
 
+    //firebase storage
+    implementation 'com.google.firebase:firebase-storage:19.1.0'
+
+    // picaso for image
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
 
 }

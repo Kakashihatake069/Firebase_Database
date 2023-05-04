@@ -1,6 +1,9 @@
 package com.example.firebaseproject
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.example.firebaseproject.databinding.ActivityDashboardBinding
 import com.example.firebaseproject.databinding.ActivityDisplayRecordBinding
+import com.example.firebaseproject.databinding.DeleteDialogboxBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -21,6 +25,7 @@ class DisplayRecordActivity : AppCompatActivity() {
     var studentList = ArrayList<StudentModelClass>()
     lateinit var rcvdisplayrecords: RecyclerView
     lateinit var adapter: DisplayAdapter
+    var imagelist = ArrayList<ImageModelClass>()
     var id = " "
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,35 +68,54 @@ class DisplayRecordActivity : AppCompatActivity() {
 
             })
     }
+
     private fun setadapter() {
 
         adapter = DisplayAdapter({
-            val editintent = Intent(this@DisplayRecordActivity,EditRegistrationActivity::class.java)
-            editintent.putExtra("name",it.name)
-            editintent.putExtra("course",it.course)
-            editintent.putExtra("address",it.address)
-            editintent.putExtra("fees",it.fees)
-            editintent.putExtra("id",it.id)
+            val editintent =
+                Intent(this@DisplayRecordActivity, EditRegistrationActivity::class.java)
+            editintent.putExtra("name", it.name)
+            editintent.putExtra("course", it.course)
+            editintent.putExtra("address", it.address)
+            editintent.putExtra("fees", it.fees)
+            editintent.putExtra("id", it.id)
+//            editintent.putExtra("image",it.)
             startActivity(editintent)
 
-        },{
-           id = it
-            deleterecord()
+        }, {
+            id = it
+            val dialog = Dialog(this)
+            val dialogBinding: DeleteDialogboxBinding = DeleteDialogboxBinding.inflate(layoutInflater)
+            dialog.setContentView(dialogBinding.root)
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+            dialogBinding.btndeletecancel.setOnClickListener {
+                Toast.makeText(this, "Your Transaction has been Canceled", Toast.LENGTH_SHORT)
+                    .show()
+                dialog.dismiss()
+            }
+            dialogBinding.btndelete.setOnClickListener {
+                deleterecord()
+                Toast.makeText(this, "Your Transaction has been Deleted", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            dialog.show()
         })
-        var LayoutManager = LinearLayoutManager(this@DisplayRecordActivity, LinearLayoutManager.VERTICAL, false)
+        var LayoutManager =
+            LinearLayoutManager(this@DisplayRecordActivity, LinearLayoutManager.VERTICAL, false)
         displayRecordBinding.rcvdisplayrecords.layoutManager = LayoutManager
         displayRecordBinding.rcvdisplayrecords.adapter = adapter
-        }
+    }
 
 
-
-    private fun deleterecord(){
-        firebaseDatabase.reference.child("studentTb").child(id).removeValue().addOnCompleteListener {
-            if (it.isSuccessful){
-                Toast.makeText(this, "Record Deleted successfully", Toast.LENGTH_SHORT).show()
-            }
-        }.addOnFailureListener {
-            Log.e("TAG", "deleterecord: "+ it.message)
+    private fun deleterecord() {
+        firebaseDatabase.reference.child("studentTb").child(id).removeValue()
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Toast.makeText(this, "Record Deleted successfully", Toast.LENGTH_SHORT).show()
+                }
+            }.addOnFailureListener {
+            Log.e("TAG", "deleterecord: " + it.message)
         }
     }
 

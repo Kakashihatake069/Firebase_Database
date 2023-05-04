@@ -36,6 +36,7 @@
 
     </LinearLayout>
 
+
     <EditText
         android:id="@+id/edtusername"
         android:layout_width="match_parent"
@@ -44,6 +45,7 @@
         android:padding="15dp"
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_20sdp"
+
         />
 
     <EditText

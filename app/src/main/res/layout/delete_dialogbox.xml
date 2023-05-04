@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/_150sdp"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:elevation="@dimen/_70sdp"
+    android:orientation="vertical"
+    app:cardCornerRadius="@dimen/_10sdp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_150sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:background="#0B2447"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sdp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_13sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="Are you sure you want to Delete"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="This Record"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+
+            android:layout_marginVertical="@dimen/_10sdp"
+            >
+            <androidx.appcompat.widget.AppCompatButton
+
+                android:id="@+id/btndeletecancel"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:background="@drawable/backgroundbg"
+                android:backgroundTint="#0B2447"
+                android:text="CANCEL"
+                android:textColor="#FFFFFF"
+                android:textSize="@dimen/_14sdp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btndelete"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginLeft="@dimen/_32sdp"
+                android:layout_weight="1"
+                android:background="@drawable/backgroundbg"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:backgroundTint="#0B2447"
+
+                android:text="Delete"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/_200sdp"-->
+    <!--        android:weightSum="2"-->
+    <!--        android:gravity="center"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:orientation="vertical"-->
+    <!--        >-->
+
+
+    <!--    <TextView-->
+    <!--            android:layout_width="@dimen/_250sdp"-->
+    <!--            android:layout_height="@dimen/_10sdp"-->
+    <!--            android:text="Expence Manager"-->
+    <!--            android:textSize="@dimen/_18sdp"-->
+    <!--            android:gravity="center"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            android:background="#19688B"-->
+    <!--            android:layout_weight="0.5"/>-->
+
+
+    <!--        <TextView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height=""-->
+
+
+    <!--      -->
+
+
+    <!--    </LinearLayout>-->
+
+
+</androidx.cardview.widget.CardView>
