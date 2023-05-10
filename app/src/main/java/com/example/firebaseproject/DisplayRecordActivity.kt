@@ -25,7 +25,7 @@ class DisplayRecordActivity : AppCompatActivity() {
     var studentList = ArrayList<StudentModelClass>()
     lateinit var rcvdisplayrecords: RecyclerView
     lateinit var adapter: DisplayAdapter
-    var imagelist = ArrayList<ImageModelClass>()
+//    var imagelist = ArrayList<ImageModelClass>()
     var id = " "
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,14 +45,15 @@ class DisplayRecordActivity : AppCompatActivity() {
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     studentList.clear()
+
                     for (i in snapshot.children) {
                         var data = i.getValue(StudentModelClass::class.java)
                         Log.e(
                             "TAG",
-                            "onDataChange: " + data?.name + " " + data?.course + " " + data?.address + data?.fees
+                            "onDataChange:" + data?.name + " " + data?.course + " " + data?.address + " " +data?.fees + "  "+ data?.image
                         )
                         data?.let { d -> studentList.add(d) }
-
+//
 //                        adapter = UserAdapter(list)
 //                        var LayoutManager= LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
 //                        binding.rcvmain.layoutManager=LayoutManager
@@ -71,7 +72,7 @@ class DisplayRecordActivity : AppCompatActivity() {
 
     private fun setadapter() {
 
-        adapter = DisplayAdapter({
+        adapter = DisplayAdapter(this,{
             val editintent =
                 Intent(this@DisplayRecordActivity, EditRegistrationActivity::class.java)
             editintent.putExtra("name", it.name)
@@ -79,7 +80,7 @@ class DisplayRecordActivity : AppCompatActivity() {
             editintent.putExtra("address", it.address)
             editintent.putExtra("fees", it.fees)
             editintent.putExtra("id", it.id)
-//            editintent.putExtra("image",it.)
+            editintent.putExtra("image", it.image)
             startActivity(editintent)
 
         }, {
@@ -101,6 +102,7 @@ class DisplayRecordActivity : AppCompatActivity() {
             }
             dialog.show()
         })
+
         var LayoutManager =
             LinearLayoutManager(this@DisplayRecordActivity, LinearLayoutManager.VERTICAL, false)
         displayRecordBinding.rcvdisplayrecords.layoutManager = LayoutManager
@@ -113,6 +115,7 @@ class DisplayRecordActivity : AppCompatActivity() {
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     Toast.makeText(this, "Record Deleted successfully", Toast.LENGTH_SHORT).show()
+                    Log.e("TAG", "deleterecordgkj: " +id)
                 }
             }.addOnFailureListener {
             Log.e("TAG", "deleterecord: " + it.message)

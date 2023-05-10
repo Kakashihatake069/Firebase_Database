@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 class EditRegistrationActivity : AppCompatActivity() {
     lateinit var editBinding: ActivityEditRegistrationBinding
     lateinit var firebaseDatabase: FirebaseDatabase
+    lateinit var image: String
     var studentList = ArrayList<StudentModelClass>()
     lateinit var adapter: DisplayAdapter
 
@@ -43,6 +44,8 @@ class EditRegistrationActivity : AppCompatActivity() {
                 editBinding.txtnewcourse.text.toString(),
                 editBinding.txtnewaddress.text.toString(),
                 editBinding.txtnewfees.text.toString(),
+                image
+
             )
             firebaseDatabase.reference.child("studentTb").child(id).setValue(data).addOnCompleteListener {
                 if (it.isSuccessful){

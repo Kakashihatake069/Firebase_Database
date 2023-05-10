@@ -10,6 +10,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firebaseproject.databinding.ActivityDashboardBinding
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -17,17 +20,19 @@ import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.Picasso
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class DashboardActivity : AppCompatActivity() {
     lateinit var dashboardBinding: ActivityDashboardBinding
     lateinit var firebaseDatabase: FirebaseDatabase
-    private lateinit var auth: FirebaseAuth
+    lateinit var auth: FirebaseAuth
     private var filePath: Uri? = null
     lateinit var storage: FirebaseStorage
     lateinit var storageReference: StorageReference
     private val PICK_IMAGE_REQUEST = 22
-
+    lateinit var googleSignInClient: GoogleSignInClient
+    var image = " "
     lateinit var progressDialog: ProgressDialog
     var studentList = ArrayList<StudentModelClass>()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +41,7 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(dashboardBinding.root)
 
         storage = FirebaseStorage.getInstance()
+        auth = FirebaseAuth.getInstance()
         storageReference = storage.getReference()
 
         initview()
@@ -70,79 +76,54 @@ class DashboardActivity : AppCompatActivity() {
 
         dashboardBinding.btnsubmit.setOnClickListener {
 
-            val key = firebaseDatabase.reference.child("studentTb").push().key ?: ""
-            val data = StudentModelClass(
-                key,
-                dashboardBinding.edtRname.text.toString(),
-                dashboardBinding.edtRcourse.text.toString(),
-                dashboardBinding.edtRadd.text.toString(),
-                dashboardBinding.edtRfees.text.toString()
 
-            )
-            firebaseDatabase.reference.child("studentTb").child(key).setValue(data)
-                .addOnCompleteListener {
+            var name = dashboardBinding.edtRname.text.toString()
+            var course = dashboardBinding.edtRcourse.text.toString()
+            var address =  dashboardBinding.edtRadd.text.toString()
+            var fees =  dashboardBinding.edtRfees.text.toString()
 
-                    if (it.isSuccessful) {
-                        dashboardBinding.edtRname.text.clear()
-                        dashboardBinding.edtRcourse.text.clear()
-                        dashboardBinding.edtRadd.text.clear()
-                        dashboardBinding.edtRfees.text.clear()
-                        dashboardBinding.edtRid.text.clear()
+            if (name.isEmpty()){
+                Toast.makeText(this, "please enter name", Toast.LENGTH_SHORT).show()
+            }
+            else if (course.isEmpty()){
+                Toast.makeText(this, "please enter your course", Toast.LENGTH_SHORT).show()
+            }
+            else if (address.isEmpty()){
+                Toast.makeText(this, "please enter your address", Toast.LENGTH_SHORT).show()
+            }
+            else if (fees.isEmpty()){
+                Toast.makeText(this, "please enter fees", Toast.LENGTH_SHORT).show()
+            }
+            else
+            {
+                val key = firebaseDatabase.reference.child("studentTb").push().key ?: ""
+                val data = StudentModelClass(key,name, course, address, fees, image)
+                firebaseDatabase.reference.child("studentTb").child(key).setValue(data)
+                    .addOnCompleteListener {
+
+
+                            dashboardBinding.edtRname.text.clear()
+                            dashboardBinding.edtRcourse.text.clear()
+                            dashboardBinding.edtRadd.text.clear()
+                            dashboardBinding.edtRfees.text.clear()
+                            dashboardBinding.edtRid.text.clear()
+                            image
+
+                    }.addOnFailureListener {
+                        Toast.makeText(this, "Invalid details", Toast.LENGTH_SHORT).show()
+                        Log.e("TAG", "initviewgdgg: "+it.message )
                     }
-
-
-                }.addOnFailureListener {
-                    Toast.makeText(this, "Invalid details", Toast.LENGTH_SHORT).show()
-                }
-
-
-            val getImage: DatabaseReference = firebaseDatabase.reference.child("studentTb")
-            getImage.addListenerForSingleValueEvent(
-                object : ValueEventListener {
-                    override fun onDataChange(
-                        dataSnapshot: DataSnapshot) {
-                        // getting a DataSnapshot for the
-                        // location at the specified relative
-                        // path and getting in the link variable
-//                        val link = dataSnapshot.getValue(String::class.java)
-                        val map = dataSnapshot.value as Map<*, *>?
-                        Log.d("TAG", "Value is: $map")
-                        // loading that data into rImage
-                        // variable which is ImageView
-//                        Picasso.get().load(map).into(dashboardBinding.imgimagespace)
-                    }
-
-                    // this will called when any problem
-                    // occurs in getting data
-                    override fun onCancelled(
-                        databaseError: DatabaseError
-                    ) {
-                        // we are showing that error message in
-                        // toast
-                        Toast
-                            .makeText(
-                                this@DashboardActivity,
-                                "Error Loading Image",
-                                Toast.LENGTH_SHORT
-                            )
-                            .show()
-                    }
-                })
-
-            Toast.makeText(
-                    this@DashboardActivity,
-                    "Details submitted",
-                    Toast.LENGTH_SHORT).show()
+            }
         }
 
+        //display all details
         dashboardBinding.btndisplay.setOnClickListener {
             var displayrecord = Intent(this@DashboardActivity, DisplayRecordActivity::class.java)
             startActivity(displayrecord)
         }
 
+        //pick image
         dashboardBinding.btnpick.setOnClickListener {
-//            pickimage()
-            // Defining Implicit Intent to mobile gallery
             val intent = Intent()
             intent.type = "image/*"
             intent.action = Intent.ACTION_GET_CONTENT
@@ -153,52 +134,40 @@ class DashboardActivity : AppCompatActivity() {
                 ), PICK_IMAGE_REQUEST
             )
         }
+
+        //upload photo
         dashboardBinding.btnupload.setOnClickListener {
             uploadimage()
         }
+
+         // google logout
+        // Initialize sign in client
+        googleSignInClient =
+            GoogleSignIn.getClient(this@DashboardActivity, GoogleSignInOptions.DEFAULT_SIGN_IN)
+        dashboardBinding.txtlogoutGoogle.setOnClickListener {
+            // Sign out from google
+            googleSignInClient.signOut().addOnCompleteListener { task ->
+                // Check condition
+                if (task.isSuccessful) {
+                    // When task is successful sign out from firebase
+                    auth.signOut()
+                    // Display Toast
+                    Toast.makeText(applicationContext, "Logout successful", Toast.LENGTH_SHORT)
+                        .show()
+                    // Finish activity
+                    finish()
+                }
+            }
+        }
     }
-
-
-//    data class details(
-//        var name: String,
-//        var course: String,
-//        var address: String,
-//        var fees: String,
-//        var id: String
-//    )
-
-
-//    private fun pickimage() {
-//        // Defining Implicit Intent to mobile gallery
-//        val intent = Intent()
-//        intent.type = "image/*"
-//        intent.action = Intent.ACTION_GET_CONTENT
-//        startActivityForResult(
-//            Intent.createChooser(
-//                intent,
-//                "Select Image from here..."
-//            ), PICK_IMAGE_REQUEST
-//        )
-//    }
-
     // Override onActivityResult method
-    override fun onActivityResult(
-        requestCode: Int,
-        resultCode: Int,
-        data: Intent?
-    ) {
-        super.onActivityResult(
-            requestCode,
-            resultCode,
-            data
-        )
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         // checking request code and result code
         // if request code is PICK_IMAGE_REQUEST and
         // resultCode is RESULT_OK
         // then set image in the image view
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.data != null) {
-
             // Get the Uri of data
             filePath = data.data
             try {
@@ -227,15 +196,19 @@ class DashboardActivity : AppCompatActivity() {
             progressDialog.show()
 
             // Defining the child of storageReference
-            val ref = storageReference
-                .child(
-                    "images/"
-                            + UUID.randomUUID().toString()
-                )
+            var ref = storageReference.child("images/" + UUID.randomUUID().toString())
+
 
             // adding listeners on upload
             // or failure of image
             ref.putFile(filePath!!)
+                .addOnCompleteListener {
+
+                    ref.downloadUrl.addOnSuccessListener {
+                        image=it.toString()
+                    }
+
+                }
                 .addOnSuccessListener { // Image uploaded successfully
                     // Dismiss dialog
                     progressDialog.dismiss()

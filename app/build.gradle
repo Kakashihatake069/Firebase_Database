@@ -49,6 +49,9 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:31.5.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
+    // firebase google sign in
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+
 
     // dimension
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
@@ -74,5 +77,12 @@ dependencies {
     // picaso for image
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    // glide
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+
+    //facebook login
+    implementation 'com.facebook.android:facebook-login:latest.release'
+    implementation 'com.facebook.android:facebook-android-sdk:[8,9)'
 
 }

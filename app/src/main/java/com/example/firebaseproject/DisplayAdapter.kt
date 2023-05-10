@@ -1,14 +1,19 @@
 package com.example.firebaseproject
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
-class DisplayAdapter(var onEdit : (StudentModelClass) -> Unit,var onDelete : (String) -> Unit): RecyclerView.Adapter<DisplayAdapter.MyViewHolder>() {
+class DisplayAdapter(var context: Context,var onEdit : (StudentModelClass) -> Unit,var onDelete : (String) -> Unit): RecyclerView.Adapter<DisplayAdapter.MyViewHolder>() {
      var studentList = ArrayList<StudentModelClass>()
+
+
     class MyViewHolder(itemview : View) : RecyclerView.ViewHolder(itemview) {
         var txtname : TextView = itemview.findViewById(R.id.txtname)
         var txtcourse : TextView = itemview.findViewById(R.id.txtcourse)
@@ -17,6 +22,7 @@ class DisplayAdapter(var onEdit : (StudentModelClass) -> Unit,var onDelete : (St
         var txtid : TextView = itemview.findViewById(R.id.txtid)
         var btnedit : AppCompatButton = itemview.findViewById(R.id.btnedit)
         var btndelete : AppCompatButton = itemview.findViewById(R.id.btndelete)
+        var imgdisimage : ImageView = itemview.findViewById(R.id.imgdisimage)
     }
 
 
@@ -36,6 +42,7 @@ class DisplayAdapter(var onEdit : (StudentModelClass) -> Unit,var onDelete : (St
             holder.txtaddress.setText(studentList[position].address)
             holder.txtfees.setText(studentList[position].fees)
             holder.txtid.setText(studentList[position].id)
+            Glide.with(context).load(studentList[position].image).into(holder.imgdisimage)
 
         holder.btnedit.setOnClickListener {
             onEdit.invoke(studentList[position])
@@ -43,9 +50,12 @@ class DisplayAdapter(var onEdit : (StudentModelClass) -> Unit,var onDelete : (St
         holder.btndelete.setOnClickListener {
             onDelete.invoke(studentList[position].id)
         }
+
     }
-    fun updatelist(list : java.util.ArrayList<StudentModelClass>){
-        studentList = list
+    fun updatelist(studentList : java.util.ArrayList<StudentModelClass>){
+        this.studentList = ArrayList()
+        this.studentList=studentList
         notifyDataSetChanged()
     }
 }
+

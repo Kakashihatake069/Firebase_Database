@@ -61,6 +61,15 @@
                 android:textStyle="bold"
                 tools:ignore="TextSizeCheck" />
 
+
+<!--            <ImageView-->
+<!--                android:id="@+id/imgedtimage"-->
+<!--                android:layout_width="@dimen/_100sdp"-->
+<!--                android:layout_height="@dimen/_100sdp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_margin="@dimen/_5sdp"/>-->
+
+
             <EditText
                 android:id="@+id/txtnewname"
                 android:layout_width="match_parent"
