@@ -31,10 +31,23 @@ class MainActivity : AppCompatActivity() {
     lateinit var googleSignInClient: GoogleSignInClient
     lateinit var callbackManager : CallbackManager
     private val EMAIL = "email"
+    var saveLogin: Boolean = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
+        var sharedPreferences = getSharedPreferences("MysharedPreference", MODE_PRIVATE)
+        val myedit: SharedPreferences.Editor = sharedPreferences.edit()
+
+        saveLogin = sharedPreferences.getBoolean("isLogin", false);
+        if (saveLogin == true) {
+            binding.edtusername.setText(sharedPreferences.getString("username", ""));
+            binding.edtusername.setText(sharedPreferences.getString("password", ""));
+            binding.saveLoginCheckBox.setChecked(true);
+        }
 
 //        try {
 //            val info = packageManager.getPackageInfo(
@@ -69,23 +82,23 @@ class MainActivity : AppCompatActivity() {
 
         // Initialize sign in client
         googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
+        // google login
         binding.btngooglesignin.setOnClickListener {
             val intent = googleSignInClient.signInIntent
             // Start activity for result
             startActivityForResult(intent, 100)
         }
 
+//        if (sharedPreferences.getBoolean("isLogin", false) == true) {
+//
+//            var i = Intent(this, DashboardActivity::class.java)
+//            startActivity(i)
+//            finish()
+//        }
 
-
-
-        if (sharedPreferences.getBoolean("isLogin", false) == true) {
-
-            var i = Intent(this, DashboardActivity::class.java)
-            startActivity(i)
-            finish()
-        }
-
+        // if already have an account
         binding.btnlogin.setOnClickListener {
+
             var email = binding.edtusername.text.toString()
             var password = binding.edtpassword.text.toString()
 
@@ -107,15 +120,17 @@ class MainActivity : AppCompatActivity() {
                         myedit.putString("email",email)
                         myedit.putString("password",password)
                         myedit.commit()
+                        myedit.apply()
                         var i = Intent(this,DashboardActivity::class.java)
                         startActivity(i)
-
                     }
                 }.addOnFailureListener {
                     Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
+
 
         binding.btnnewaccount.setOnClickListener {
             var acc = Intent(this,CreateAccount::class.java)
@@ -182,7 +197,13 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    private fun doSomethingElse() {
+        var i = Intent(this,DashboardActivity::class.java)
+        startActivity(i)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode === 100) {

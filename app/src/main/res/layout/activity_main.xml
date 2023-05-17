@@ -58,12 +58,23 @@
         android:layout_marginTop="@dimen/_10sdp"
         />
 
+    <CheckBox
+        android:id="@+id/saveLoginCheckBox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="Remember me"
+        android:textSize="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
+        android:textColor="@color/black"
+        />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnlogin"
         android:layout_width="@dimen/_60sdp"
         android:layout_height="48dp"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:background="#0B2447"
         android:padding="@dimen/_10sdp"
         android:text="LOGIN"
